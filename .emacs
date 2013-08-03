@@ -2,8 +2,7 @@
 ;; last clean-up: 2013-08-03
 
 ;; setup load path, primarily for external scripts
-(setq load-path (append '(
-                          "C:/_tools/emacs-24.3/load_path"
+(setq load-path (append '("C:/_tools/emacs-24.3/load_path"
                           "C:/_tools/emacs-24.3/load_path/git-emacs"
                           "C:/_tools/emacs-24.3/load_path/color-theme"
                           "~/.emacs.d/")
@@ -27,7 +26,21 @@
 
 ;; custom global face settings
 (custom-set-faces
- '(default ((t (:inherit nil :stipple nil :background "SystemWindow" :foreground "SystemWindowText" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 98 :width normal :foundry "outline" :family "Lucida Console")))))
+ '(default ((t (:inherit nil
+                :stipple nil
+                :background "SystemWindow"
+                :foreground "SystemWindowText"
+                :inverse-video nil
+                :box nil
+                :strike-through nil
+                :overline nil
+                :underline nil
+                :slant normal
+                :weight normal
+                :height 98
+                :width normal
+                :foundry "outline"
+                :family "Lucida Console")))))
 
 ;; load, initialize and set color theme
 (require 'color-theme)
