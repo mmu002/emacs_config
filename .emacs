@@ -1,6 +1,7 @@
 ;; .emacs - gnu emacs configuration file
 ;; last clean-up: 2013-08-03
 
+;;;;;;;;;; emacs standard configuration stuff ;;;;;;;;;;
 ;; setup load path, primarily for external scripts
 (setq load-path (append '("C:/_tools/emacs-24.3/load_path"
                           "C:/_tools/emacs-24.3/load_path/git-emacs"
@@ -42,11 +43,75 @@
                 :foundry "outline"
                 :family "Lucida Console")))))
 
+;; use spaces instead of tabs
+(setq-default indent-tabs-mode nil)
+
+
+
+;;;;;;;;;; shortcut remapping & hooks ;;;;;;;;;;
+;; set the proper shortcuts
+(define-key global-map [(f11)] 'th-color-theme-prev)
+(define-key global-map [(f12)] 'th-color-theme-next)
+
+;; alternative to M-x
+(global-set-key "\C-x\C-m" 'execute-extended-command)
+(global-set-key "\C-c\C-m" 'execute-extended-command)
+
+;; alternative to C-w
+(global-set-key "\C-x\C-k" 'kill-region)
+(global-set-key "\C-c\C-k" 'kill-region)
+
+;; don't use the backspace key
+(global-set-key "\C-w" 'backward-kill-word)
+
+;; use the power of regular expressions
+(global-set-key "\M-s" 'isearch-forward-regexp)
+(global-set-key "\M-r" 'isearch-backward-regexp)
+
+;; shortcuts for easily en-/disabling case-sensitive search & more
+(add-hook 'isearch-mode-hook
+          (function
+           (lambda ()
+             (define-key isearch-mode-map "\C-h" 'isearch-mode-help)
+             (define-key isearch-mode-map "\C-t" 'isearch-toggle-regexp)
+             (define-key isearch-mode-map "\C-c" 'isearch-toggle-case-fold)
+             (define-key isearch-mode-map "\C-j" 'isearch-edit-string))))
+
+;; query each replacement
+(defalias 'qrr 'query-replace-regexp)
+
+;; use ibuffer as default buffer switcher
+(defalias 'list-buffers 'ibuffer)
+
+
+
+;;;;;;;;;; external modules import & configuration ;;;;;;;;;;
 ;; load, initialize and set color theme
 (require 'color-theme)
 (color-theme-initialize)
 (color-theme-calm-forest)
 
+;; auto-complete
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+(ac-config-default)
+
+;; make org-mode work with files ending in .org
+(require 'org)
+(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+(setq org-insert-mode-line-in-empty-file t)
+
+;; easy buffer switching using CTRL-TAB
+(require 'ebs)
+(ebs-initialize)
+(global-set-key [(control tab)] 'ebs-switch-buffer)
+
+;; enable git support
+(require 'git-emacs)
+
+
+
+;;;;;;;;;; in-configuration procedure implementations ;;;;;;;;;;
 ;; color theme selector
 (defvar th-current-color-theme-index 0 "Holds the index of the currently activated color theme.")
 
@@ -74,71 +139,15 @@
   (interactive)
   (th-color-theme-set (- th-current-color-theme-index 1)))
 
-;; set the proper shortcuts
-(define-key global-map [(f11)] 'th-color-theme-prev)
-(define-key global-map [(f12)] 'th-color-theme-next)
-
-;; auto-complete
-(require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
-(ac-config-default)
-
-;; make org-mode work with files ending in .org
-(require 'org)
-(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
-(setq org-insert-mode-line-in-empty-file t)
-
 ;; Set transparency of emacs
 (defun transparency (value)
   "Sets the transparency of the frame window. 0=transparent/100=opaque"
   (interactive "nTransparency Value 0 - 100 opaque: ")
   (set-frame-parameter (selected-frame) 'alpha value))
 
-;; easy buffer switching using CTRL-TAB
-(require 'ebs)
-(ebs-initialize)
-(global-set-key [(control tab)] 'ebs-switch-buffer)
-
-;; use spaces instead of tabs
-(setq-default indent-tabs-mode nil)
-
-;; enable git support
-(require 'git-emacs)
-
-;; shortcuts for easily en-/disabling case-sensitive search & more
-(add-hook 'isearch-mode-hook
-          (function
-           (lambda ()
-             (define-key isearch-mode-map "\C-h" 'isearch-mode-help)
-             (define-key isearch-mode-map "\C-t" 'isearch-toggle-regexp)
-             (define-key isearch-mode-map "\C-c" 'isearch-toggle-case-fold)
-             (define-key isearch-mode-map "\C-j" 'isearch-edit-string)))
-)
 
 
-;; effective emacs stuff ;;
-;; alternative to M-x
-(global-set-key "\C-x\C-m" 'execute-extended-command)
-(global-set-key "\C-c\C-m" 'execute-extended-command)
-
-;; alternative to C-w
-(global-set-key "\C-x\C-k" 'kill-region)
-(global-set-key "\C-c\C-k" 'kill-region)
-
-;; don't use the backspace key
-(global-set-key "\C-w" 'backward-kill-word)
-
-;; use the power of regular expressions
-(global-set-key "\M-s" 'isearch-forward-regexp)
-(global-set-key "\M-r" 'isearch-backward-regexp)
-
-;; query each replacement
-(defalias 'qrr 'query-replace-regexp)
-
-;; use ibuffer as default buffer switcher
-(defalias 'list-buffers 'ibuffer)
-
-;;;;;;;;;; not needed anymore ;;;;;;;;;;
+;;;;;;;;;; old snippets, configurations & magic stuff ;;;;;;;;;;
 ;;
 ;; rhtml mode
 ;; (require 'rhtml-mode)
