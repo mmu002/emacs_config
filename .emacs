@@ -86,6 +86,7 @@
 ;; make org-mode work with files ending in .org
 (require 'org)
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+(setq org-insert-mode-line-in-empty-file t)
 
 ;; Set transparency of emacs
 (defun transparency (value)
@@ -140,7 +141,6 @@
 ;; use ibuffer as default buffer switcher
 (defalias 'list-buffers 'ibuffer)
 
-(setq org-insert-mode-line-in-empty-file t)
 ;; full screen toggle using command+[RET]
 (defun toggle-fullscreen () 
   (interactive) 
