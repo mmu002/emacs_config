@@ -50,7 +50,7 @@
 ;; color theme selector
 (defvar th-current-color-theme-index 0 "Holds the index of the currently activated color theme.")
 
-;; Set the actual color theme
+;; set the actual color theme
 (defun th-color-theme-set (index)
   (setq index
         (cond
@@ -90,7 +90,7 @@
 ;; Set transparency of emacs
 (defun transparency (value)
   "Sets the transparency of the frame window. 0=transparent/100=opaque"
-  (interactive "nTransparency Value 0 - 100 opaque:")
+  (interactive "nTransparency Value 0 - 100 opaque: ")
   (set-frame-parameter (selected-frame) 'alpha value))
 
 ;; easy buffer switching using CTRL-TAB
