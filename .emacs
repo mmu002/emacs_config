@@ -115,11 +115,8 @@
              (define-key isearch-mode-map "\C-j" 'isearch-edit-string)))
 )
 
-;; activate minimap
-(require 'minimap)
 
 ;; effective emacs stuff ;;
-
 ;; alternative to M-x
 (global-set-key "\C-x\C-m" 'execute-extended-command)
 (global-set-key "\C-c\C-m" 'execute-extended-command)
@@ -200,3 +197,6 @@
 ;; (global-set-key (kbd "C-x <down>") 'windmove-down-cycle)
 ;; (global-set-key (kbd "C-x <right>") 'windmove-right-cycle)
 ;; (global-set-key (kbd "C-x <left>") 'windmove-left-cycle)
+
+;; activate minimap
+;; (require 'minimap)
