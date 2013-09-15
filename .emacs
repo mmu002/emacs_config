@@ -7,7 +7,7 @@
                           "C:/_tools/emacs-24.3/load_path/git-emacs"
                           "C:/_tools/emacs-24.3/load_path/color-theme"
                           "~/.emacs.d/")
-                        load-path)))
+                        load-path))
 
 ;; custom global variables
 (custom-set-variables
